@@ -17,7 +17,8 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         const val BASE_URL = "https://jsonplaceholder.typicode.com/"
-        const val RESOURCE_URL = "posts/1"
+        const val RESOURCE_URL = "posts"
+        const val QUERY = "userId"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,13 +40,13 @@ class MainActivity : AppCompatActivity() {
         }
 
         val apiInterface = retrofit.create(ApiInterface::class.java)
-        val call : Call<Post> = apiInterface.post
-        call.enqueue(object : Callback<Post>{
-            override fun onResponse(call: Call<Post>, response: Response<Post>) {
-                textView.text = response.body()?.title
+        val call : Call<List<Post>> = apiInterface.getPost("1")
+        call.enqueue(object : Callback<List<Post>>{
+            override fun onResponse(call: Call<List<Post>>, response: Response<List<Post>>) {
+                textView.text = response.body()?.get(0)?.title
             }
 
-            override fun onFailure(call: Call<Post>, e: Throwable) {
+            override fun onFailure(call: Call<List<Post>>, e: Throwable) {
                 textView.text = e.message
             }
         })
