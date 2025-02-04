@@ -11,5 +11,5 @@ import retrofit2.http.Query;
 
 public interface ApiInterface {
     @GET(RESOURCE_URL)
-    public Call<List<Post>> getPost(@Query(QUERY) String userId);
+    Call<List<Post>> getPost(@Query(QUERY) String userId);
 }
